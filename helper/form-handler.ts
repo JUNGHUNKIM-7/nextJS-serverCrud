@@ -6,15 +6,24 @@ export interface IData<T> {
 export interface IDataObj {
   dta: string;
 }
-
-export async function onSumbitHandler(
-  e: FormEvent,
-  method: string,
-  dataObj: IDataObj,
-  newData: string | null = null,
-  cParam: string | string[] | undefined = undefined
-) {
-  const newobj = newData ? { ...dataObj, newData, cParam } : dataObj;
+type SubmitHandler<T, U> = {
+  (e: FormEvent, method: T, dta: IDataObj): Promise<U>;
+  (
+    e: FormEvent,
+    method: T,
+    dta: IDataObj,
+    newDta?: T | null,
+    cParam?: T | T[] | undefined
+  ): Promise<U>;
+};
+export const onSumbitHandler: SubmitHandler<string, void> = async (
+  e,
+  method,
+  dta,
+  newDta = null,
+  cParam = undefined
+) => {
+  const newobj = newDta ? { ...dta, newDta, cParam } : dta;
 
   e.preventDefault();
   const res = await fetch(`/api/crud/${cParam}`, {
@@ -32,4 +41,4 @@ export async function onSumbitHandler(
   if (!res.ok) {
     throw new Error("something went wrong");
   }
-}
+};

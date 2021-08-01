@@ -6,7 +6,6 @@ enum METHOD {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
-  GET = "GET",
 }
 
 export interface IRes {
@@ -23,6 +22,7 @@ export default async function handler(
 
   //body parse
   const { dta, newDta, cParam } = JSON.parse(req.body);
+  console.log(dta, newDta, cParam);
 
   //validation
   const matchedParam = Number(req.query.slug[0]) === Number(cParam);
@@ -75,10 +75,6 @@ export default async function handler(
         throw Error(error as string | undefined);
       }
       break;
-
-    case METHOD.GET:
-      const documnet = await handler.getAll();
-      res.status(200).json({ 200: documnet });
 
     default:
       res.status(500).json({ 200: "Internal Server Error" });

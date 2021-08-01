@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useRef } from "react";
-import { onSumbitHandler } from "../helper/form-handler";
+import { onSumbitHandler } from "../../helper/form-handler";
 
 export default function NewDataForm() {
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,39 +1,13 @@
 import { GetStaticProps } from "next";
-import { FormEvent, useRef } from "react";
-import { IData, IDataObj, onSumbitHandler } from "../helper/form-handler";
+import { IData, IDataObj } from "../helper/form-handler";
 
-export default function Index({ data }: IData<IDataObj>) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const deleteRef = useRef<HTMLInputElement>(null);
-
+export default function index() {
   return (
-    <>
-      <form
-        action=""
-        onSubmit={(e: FormEvent) =>
-          onSumbitHandler(e, "POST", { dta: inputRef.current?.value as string })
-        }
-      >
-        <label htmlFor="title">POST</label>
-        <input type="text" id="title" ref={inputRef} />
-        <button>Post</button>
-      </form>
-      <form
-        action=""
-        onSubmit={(e: FormEvent) =>
-          onSumbitHandler(e, "DELETE", {
-            dta: deleteRef.current?.value as string,
-          })
-        }
-      >
-        <label htmlFor="title">Delete</label>
-        <input type="text" id="title" ref={deleteRef} />
-        <button>Delete</button>
-      </form>
-    </>
+    <div>
+      <div>Crud Home</div>
+    </div>
   );
 }
-
 export const getStaticProps: GetStaticProps = async () => {
   const data: IData<IDataObj> = await (
     await fetch("http://localhost:3000/api/hello")
